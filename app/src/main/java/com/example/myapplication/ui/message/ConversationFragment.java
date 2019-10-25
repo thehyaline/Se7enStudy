@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +20,7 @@ import com.example.myapplication.im.ConversationInfo;
 import com.example.myapplication.im.GenerateUserSig;
 import com.example.myapplication.im.MessageInfo;
 import com.example.myapplication.im.MessageInfoUtil;
+import com.example.myapplication.ui.chat.ChatActivity;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
@@ -39,7 +38,6 @@ public class ConversationFragment extends Fragment {
 
     ConversationViewModel messageViewModel;
     private TIMConversation conversation;
-
     private View root;
     private RecyclerView msgRecylerView; //声明RecycleView
     private MessageListRecycleViewAdapter mRecycleAdapter; //自定义适配器
@@ -123,16 +121,10 @@ public class ConversationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Fragment fragment = new Fragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.layout.chat_fragment,fragment);
 
-
-                Intent intent = new Intent("com.example.myapplication.ACTION_START");//隐式Intent，需要指明启动哪个活动
-                //Intent intent = new Intent(getActivity(), SettingActivity.class);//显式Intent，需要指明启动哪个活动
+                Intent intent = new Intent(getActivity(), ChatActivity.class);//显式Intent，需要指明启动哪个活动
                 startActivity(intent); //启动目标活动
-
+                getActivity().overridePendingTransition(0, 0); //该方法必须针对Activity
 
             }
         });
@@ -291,8 +283,8 @@ public class ConversationFragment extends Fragment {
                 Toast.makeText(getActivity(),"w哈哈",Toast.LENGTH_LONG).show();
 
             } */
-
     }
+
 
     //用于处理获取到的聊天列表中的消息部分
     private ConversationInfo TIMConversation2ConversationInfo(final TIMConversation conversation){

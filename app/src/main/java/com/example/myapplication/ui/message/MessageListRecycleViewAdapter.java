@@ -16,10 +16,19 @@ import java.util.ArrayList;
 public class MessageListRecycleViewAdapter extends RecyclerView.Adapter<MessageListRecycleViewAdapter.ViewHolder> {
 
     private Context context;
-
     private ArrayList<ConversationInfo> messageEntityList;
+    private OnItemClickListener onItemClickListener;
 
+    //定义点击回调接口
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view, int position);
+    }
 
+    //定义一个设置点击监听器的方法
+    public void setOnItemClickListener(MessageListRecycleViewAdapter.OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     //构造方法，传入数据
     public MessageListRecycleViewAdapter(Context context, ArrayList<ConversationInfo> messageEntityList){
@@ -36,11 +45,34 @@ public class MessageListRecycleViewAdapter extends RecyclerView.Adapter<MessageL
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         //根据点击位置并绑定数据
-        ConversationInfo data = messageEntityList.get(position);
+        final ConversationInfo data = messageEntityList.get(position);
         holder.mItemNickName.setText("用户ID：" + data.getId()); //获取实体类中的nickname字段并设置
         holder.mItemLastMsg.setText("最后消息：" + data.getLastMessage().getExtra());//获取实体类中的lastmsg字段并设置
+
+        //对RecyclerView的每一个itemView设置点击事件
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if(onItemClickListener != null) {
+                    int pos = holder.getLayoutPosition();
+                    onItemClickListener.onItemClick(holder.itemView, pos);
+                }
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(onItemClickListener != null) {
+                    int pos = holder.getLayoutPosition();
+                    onItemClickListener.onItemLongClick(holder.itemView, pos);
+                }
+                //表示此事件已经消费，不会触发单击事件
+                return true;
+            }
+        });
     }
 
     @Override
