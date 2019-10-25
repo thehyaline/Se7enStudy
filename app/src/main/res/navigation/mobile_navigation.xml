@@ -19,8 +19,8 @@
 
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.myapplication.ui.message.MessageFragment"
+        android:name="com.example.myapplication.ui.message.ConversationFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/fragment_conversation" />
 
 </navigation>

@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="300dp">
 
             <Button
                 android:id="@+id/message_login1"
@@ -43,6 +39,7 @@
                 android:layout_row="3"
                 android:layout_column="0"
                 android:text="发送2 to 1" />
+
             <Button
                 android:id="@+id/message_view1"
                 android:layout_width="match_parent"
@@ -50,6 +47,7 @@
                 android:layout_row="4"
                 android:layout_column="0"
                 android:text="获取和2的会话消息" />
+
             <Button
                 android:id="@+id/message_view2"
                 android:layout_width="match_parent"
@@ -57,32 +55,11 @@
                 android:layout_row="5"
                 android:layout_column="0"
                 android:text="获取和1的会话消息" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="6"
-                android:layout_column="0">
-            </androidx.recyclerview.widget.RecyclerView>
-
         </GridLayout>
 
-
-        <TextView
-            android:id="@+id/text_message"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/msg_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="300dp" />
+</RelativeLayout>

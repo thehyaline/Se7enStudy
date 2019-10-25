@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MessageViewModel extends ViewModel {
+public class ConversationViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public MessageViewModel() {
+    public ConversationViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");
     }

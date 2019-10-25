@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             //bfe4ee75dcca47d07d19b3dfa4c4a949a16578711e1a2ee05449227587354df7
         }
 
+
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
