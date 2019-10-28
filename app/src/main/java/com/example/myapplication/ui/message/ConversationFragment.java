@@ -40,7 +40,7 @@ public class ConversationFragment extends Fragment {
     private TIMConversation conversation;
     private View root;
     private RecyclerView msgRecylerView; //声明RecycleView
-    private MessageListRecycleViewAdapter mRecycleAdapter; //自定义适配器
+    private ConversationRecycleViewAdapter mRecycleAdapter; //自定义适配器
     private ArrayList<ConversationInfo> infos = new ArrayList();
 
     @Override
@@ -134,39 +134,7 @@ public class ConversationFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String peer = "2";
-                conversation = TIMManager.getInstance().getConversation(
-                        TIMConversationType.C2C,
-                        peer
-                );
 
-                //构造一条消息
-                TIMMessage msg = new TIMMessage();
-
-                //添加文本内容
-                TIMTextElem elem = new TIMTextElem();
-                elem.setText("a new msg");
-
-                //将elem添加到消息
-                if (msg.addElement(elem) != 0) {
-                    Toast.makeText(getContext(), "addElement failed", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                //发送消息
-                conversation.sendMessage(msg, new TIMValueCallBack<TIMMessage>() {//发送消息回调
-                    @Override
-                    public void onError(int code, String desc) {//发送消息失败
-                        //错误码 code 和错误描述 desc，可用于定位请求失败原因
-                        //错误码 code 含义请参见错误码表
-                        Toast.makeText(getContext(), "send message failed. code: " + code + " errmsg: " + desc, Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onSuccess(TIMMessage msg) {//发送消息成功
-                        Toast.makeText(getContext(), "1向2发送消息成功", Toast.LENGTH_LONG).show();
-                    }
-                });
 
             }
         });
@@ -268,16 +236,16 @@ public class ConversationFragment extends Fragment {
     private void initmsgRecylerView() {
 
         msgRecylerView = root.findViewById(R.id.msg_recycler_view);//获取RecycleView
-        mRecycleAdapter = new MessageListRecycleViewAdapter(getActivity(), infos);//创建adapter
+        mRecycleAdapter = new ConversationRecycleViewAdapter(getActivity(), infos);//创建adapter
         msgRecylerView.setAdapter(mRecycleAdapter);//给获取RecycleView设置adapter
 
-        //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
+        //设置layoutManager,可以设置显示效、果，是线性布局、grid布局，还是瀑布流布局
         //参数是：上下文、列表方向（横向还是纵向）、是否倒序
         msgRecylerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         //设置item的分割线
         msgRecylerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        /* mRecycleAdapter.setOnItemClickListener(new MessageListRecycleViewAdapter().OnItemClickListener()){
+        /* mRecycleAdapter.setOnItemClickListener(new ConversationRecycleViewAdapter().OnItemClickListener()){
             @Override
             public void OnItemClick(View view, GoodsEntity data){
                 Toast.makeText(getActivity(),"w哈哈",Toast.LENGTH_LONG).show();
