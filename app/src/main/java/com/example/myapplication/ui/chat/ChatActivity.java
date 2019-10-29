@@ -56,6 +56,14 @@ public class ChatActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(List<TIMMessage> msgs) {//获取消息成功
+
+                        for (int y = 0; y < msgs.size(); y++) {
+
+                            TIMMessage lastmsg = msgs.get(y);
+                            //conversationEnity.setLastMessage(conversation.getLastMsg());
+                        }
+
+
                         //遍历取得的消息
                         for (TIMMessage msgHistory : msgs) {
                             //可以通过 timestamp()获得消息的时间戳, isSelf()是否为自己发送的消息
@@ -121,4 +129,6 @@ public class ChatActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

@@ -64,14 +64,8 @@ public class ConversationFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_conversation, container, false);
 
         //RecycleView动作
-        initmsgRecylerView();//配置RecylerView
+        initConversationRecylerView();//配置RecylerView
         initMsgListData(); //处理数据
-
-
-        //获取会话条数
-        List<TIMConversation> TIMConversations = TIMManager.getInstance().getConversationList();
-        int i = TIMConversations.size();
-        Toast.makeText(getContext(), "消息列表内条数：" + i, Toast.LENGTH_LONG).show();
 
 
         //IM操作按钮
@@ -233,7 +227,7 @@ public class ConversationFragment extends Fragment {
         }
     }
 
-    private void initmsgRecylerView() {
+    private void initConversationRecylerView() {
 
         msgRecylerView = root.findViewById(R.id.msg_recycler_view);//获取RecycleView
         mRecycleAdapter = new ConversationRecycleViewAdapter(getActivity(), infos);//创建adapter
