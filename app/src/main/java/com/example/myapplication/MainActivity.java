@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -11,6 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.im.GenerateUserSig;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMSdkConfig;
@@ -36,6 +38,23 @@ public class MainActivity extends AppCompatActivity {
             TIMManager.getInstance().init(getApplicationContext(), config);
             //bfe4ee75dcca47d07d19b3dfa4c4a949a16578711e1a2ee05449227587354df7
         }
+
+
+        TIMManager.getInstance().login(userId, userSig, new TIMCallBack() {
+            @Override
+            public void onError(int code, String desc) {
+                //错误码 code 和错误描述 desc，可用于定位请求失败原因
+                //错误码 code 列表请参见错误码表
+                Toast.makeText(MainActivity.this, "login failed. code: " + code + " errmsg: " + desc, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess() {
+                String loginUser = TIMManager.getInstance().getLoginUser();
+                Toast.makeText(MainActivity.this, "IM账号1登录成功:" + loginUser, Toast.LENGTH_LONG).show();
+            }
+
+        });
 
 
         setContentView(R.layout.activity_main);

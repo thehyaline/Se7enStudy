@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.im.ConversationInfo;
-import com.example.myapplication.im.GenerateUserSig;
 import com.example.myapplication.im.MessageInfo;
 import com.example.myapplication.im.MessageInfoUtil;
 import com.example.myapplication.ui.chat.ChatActivity;
-import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMManager;
@@ -68,47 +66,6 @@ public class ConversationFragment extends Fragment {
         initMsgListData(); //处理数据
 
 
-        //IM操作按钮
-        final Button button1 = root.findViewById(R.id.message_login1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                TIMManager.getInstance().logout(new TIMCallBack() {
-                    @Override
-                    public void onError(int code, String desc) {
-
-                        //错误码 code 和错误描述 desc，可用于定位请求失败原因
-                        //错误码 code 列表请参见错误码表
-                        Toast.makeText(getContext(), "退出账号1失败 code: " + code + " errmsg: " + desc, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        //登出成功
-                    }
-
-                });
-                String userId = "1";
-                String userSig = GenerateUserSig.genTestUserSig(userId);
-
-                TIMManager.getInstance().login(userId, userSig, new TIMCallBack() {
-                    @Override
-                    public void onError(int code, String desc) {
-                        //错误码 code 和错误描述 desc，可用于定位请求失败原因
-                        //错误码 code 列表请参见错误码表
-                        Toast.makeText(getContext(), "login failed. code: " + code + " errmsg: " + desc, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        String loginUser = TIMManager.getInstance().getLoginUser();
-                        Toast.makeText(getContext(), "IM账号1登录成功:" + loginUser, Toast.LENGTH_LONG).show();
-                    }
-
-                });
-            }
-        });
 
         final Button button2 = root.findViewById(R.id.message_login2);
         button2.setOnClickListener(new View.OnClickListener() {

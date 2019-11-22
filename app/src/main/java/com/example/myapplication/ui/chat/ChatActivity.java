@@ -29,6 +29,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private Context context;
     private String editText;
+    private TextView messageHistoryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class ChatActivity extends AppCompatActivity {
         context = this;
         final EditText editTextBox = (EditText) findViewById(R.id.msg_edit);
         final Button sendButton = (Button) findViewById(R.id.msg_sent);
-        final TextView messageHistoryView = (TextView) findViewById(R.id.my_msg);
+        messageHistoryView = (TextView) findViewById(R.id.my_msg);
 
         //获取会话扩展实例
         TIMConversation con = TIMManager.getInstance().getConversation(TIMConversationType.C2C, "2");
@@ -63,11 +64,15 @@ public class ChatActivity extends AppCompatActivity {
                             //conversationEnity.setLastMessage(conversation.getLastMsg());
                         }
 
-
                         //遍历取得的消息
                         for (TIMMessage msgHistory : msgs) {
                             //可以通过 timestamp()获得消息的时间戳, isSelf()是否为自己发送的消息
-                            messageHistoryView.append(msgHistory.getSender()+"\n");
+                            if(messageHistoryView == null){
+                                return;
+                            }else {
+                                messageHistoryView.append(msgHistory.getSender()+"\n");
+                            }
+
                         }
                     }
                 });
