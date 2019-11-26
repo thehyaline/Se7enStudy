@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.im.GenerateUserSig;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tencent.imsdk.TIMCallBack;
-import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
-import com.tencent.imsdk.TIMSdkConfig;
-import com.tencent.imsdk.session.SessionWrapper;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,16 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         String userId = "1";
         String userSig = GenerateUserSig.genTestUserSig(userId);
-
-        if (SessionWrapper.isMainProcess(getApplicationContext())) {
-            TIMSdkConfig config = new TIMSdkConfig(GenerateUserSig.SDKAPPID)
-                    .enableLogPrint(true)
-                    .setLogLevel(TIMLogLevel.DEBUG)
-                    .setLogPath(Environment.getExternalStorageDirectory().getPath() + "/justfortest/");
-            //初始化 SDK
-            TIMManager.getInstance().init(getApplicationContext(), config);
-            //bfe4ee75dcca47d07d19b3dfa4c4a949a16578711e1a2ee05449227587354df7
-        }
 
 
         TIMManager.getInstance().login(userId, userSig, new TIMCallBack() {

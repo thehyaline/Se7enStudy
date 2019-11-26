@@ -18,6 +18,7 @@ public class ConversationRecycleViewAdapter extends RecyclerView.Adapter<Convers
     private Context context;
     private ArrayList<ConversationInfo> messageEntityList;
     private OnItemClickListener onItemClickListener;
+    private itemInterface itemInterface;
 
     //定义点击回调接口
     public interface OnItemClickListener {
@@ -50,29 +51,6 @@ public class ConversationRecycleViewAdapter extends RecyclerView.Adapter<Convers
         final ConversationInfo data = messageEntityList.get(position);
         holder.mItemNickName.setText("用户ID：" + data.getId()); //获取实体类中的nickname字段并设置
         holder.mItemLastMsg.setText("最后消息：" + data.getLastMessage().getExtra());//获取实体类中的lastmsg字段并设置
-
-        //对RecyclerView的每一个itemView设置点击事件
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if(onItemClickListener != null) {
-                    int pos = holder.getLayoutPosition();
-                    onItemClickListener.onItemClick(holder.itemView, pos);
-                }
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if(onItemClickListener != null) {
-                    int pos = holder.getLayoutPosition();
-                    onItemClickListener.onItemLongClick(holder.itemView, pos);
-                }
-                //表示此事件已经消费，不会触发单击事件
-                return true;
-            }
-        });
     }
 
     @Override
@@ -96,4 +74,15 @@ public class ConversationRecycleViewAdapter extends RecyclerView.Adapter<Convers
 
 
     }
+
+    public void conSetOnclick(){
+        this.itemInterface = itemInterface;
+
+    }
+
+    public interface itemInterface{
+        public void onlick(View view , int position);
+    }
+
+    //https://my.oschina.net/u/3730650/blog/2253403
 }

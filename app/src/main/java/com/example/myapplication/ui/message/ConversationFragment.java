@@ -66,7 +66,6 @@ public class ConversationFragment extends Fragment {
         initMsgListData(); //处理数据
 
 
-
         final Button button2 = root.findViewById(R.id.message_login2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,7 +202,6 @@ public class ConversationFragment extends Fragment {
 
             } */
     }
-
 
     //用于处理获取到的聊天列表中的消息部分
     private ConversationInfo TIMConversation2ConversationInfo(final TIMConversation conversation){

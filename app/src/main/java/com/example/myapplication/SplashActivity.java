@@ -2,18 +2,15 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.os.Environment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.im.GenerateUserSig;
-import com.tencent.imsdk.TIMCallBack;
+import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
-import com.tencent.imsdk.TIMConversation;
-import com.tencent.imsdk.TIMManager;
-import com.tencent.imsdk.TIMMessage;
+import com.tencent.imsdk.TIMSdkConfig;
+import com.tencent.imsdk.session.SessionWrapper;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,6 +21,21 @@ public class SplashActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();//隐藏标题栏
         setContentView(R.layout.activity_splash);
+
+
+
+
+        if (SessionWrapper.isMainProcess(getApplicationContext())) {
+            TIMSdkConfig config = new TIMSdkConfig(GenerateUserSig.SDKAPPID)
+                    .enableLogPrint(true)
+                    .setLogLevel(TIMLogLevel.DEBUG)
+                    .setLogPath(Environment.getExternalStorageDirectory().getPath() + "/justfortest/");
+            //初始化 SDK
+            TIMManager.getInstance().init(getApplicationContext(), config);
+            //bfe4ee75dcca47d07d19b3dfa4c4a949a16578711e1a2ee05449227587354df7
+        }
+
+
         Thread myThread=new Thread(){
             public void run(){
                 try{
